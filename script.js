@@ -1,4 +1,6 @@
 var calculo = document.getElementById('areaTexto');
+var maxLinhas = 4;
+var linhas = [];
 calculo.addEventListener('keydown', function(e) { // evento Enter
     if (e.key === 'Enter') {
         calculando();
@@ -31,9 +33,9 @@ function apagar() { // função de apagar texto por botão
 }
 function historico(ultimaConta, operacao) { // função para histórico
     const historicoTexto = document.getElementById('historico');
-    if (historicoTexto.textContent === "") {
-        historicoTexto.innerHTML += operacao + " = " + ultimaConta;
-    } else {
-        historicoTexto.innerHTML += "<br>" + operacao + " = " + ultimaConta;
+    linhas.push("<br>" + operacao + " = " + ultimaConta);
+    if (linhas.length > maxLinhas) {  // para nao sobrecarregar a memória
+        linhas.shift();
     }
+    historicoTexto.innerHTML = linhas.join("<br>");
 }
